@@ -1,3 +1,10 @@
 .hidden {
     display: none;
 }
+
+.results {
+    border: 1px solid black;
+    background: grey;
+    color: white;
+    width: 400px;
+}

@@ -1,63 +1,79 @@
-function moveCircleToRandomPosition () {
+function CircleTest () {
 
-    var pos = $("#theCircle").position();
+    this.currentSize = 0;
+    this.currentIteration = 0;
+    this.increaseAfter = 2;
+    this.circleSizes = [5, 10, 20, 30, 50];
+    this.numberOfClicks = 0;
 
-    var new_x = Math.floor(Math.random() * ($( document ).width() - circleSizes[currentSize] * 2) + 1);
-    var new_y = Math.floor(Math.random() * ($( document ).height() - circleSizes[currentSize] * 2) + 1);
+    this.cirle = $("#theCircle");
+    this.canvas = $("#theCanvas");
+    this.result = $("#result");
+    this.controlButton = $("#controlButton");
 
-    $("#theCanvas").css({position: 'absolute', left: new_x, top: new_y});
-}
+    this.moveCircleToRandomPosition = function () {
+        var new_x = Math.floor(Math.random() * ($(document).width() - this.circleSizes[this.canvas] * 2) + 1);
+        var new_y = Math.floor(Math.random() * ($(document).height() - this.circleSizes[this.currentSize] * 2) + 1);
 
-var currentSize = 0;
-var currentIteration = 0;
-var increaseAfter = 2;
-var circleSizes = [5, 10, 20, 30, 50];
+        this.canvas.css({position: 'absolute', left: new_x, top: new_y});
+    };
 
-function startTest() {
-    var btn = $("#controlButton");
-    btn.click(stopTest);
-    btn.val("Stop Test");
+    this.startTest = function () {
+        this.result.hide();
 
-    currentIteration = 0;
-    currentSize = 0;
-    setCircleSize(circleSizes[currentSize]);
-    moveCircleToRandomPosition();
+        this.controlButton.click($.proxy(this.stopTest, this));
+        this.controlButton.val("Stop Test");
 
-    $("#theCanvas").show();
-}
+        this.currentIteration = 0;
+        this.currentSize = 0;
+        this.numberOfClicks = 0;
+        this.setCircleSize(this.circleSizes[this.currentSize]);
+        this.moveCircleToRandomPosition();
 
-function stopTest () {
-    $("#theCanvas").hide();
+        this.canvas.show();
+    };
 
-    var btn = $("#controlButton");
-    btn.click(startTest);
-    btn.val("Start Test");
-}
+    this.stopTest = function () {
+        this.canvas.hide();
 
-function init () {
-    $("#theCircle").click (clickCallback);
-    $("#controlButton").click(startTest)
-}
+        this.evaluate();
 
-function clickCallback() {
-    currentIteration += 1;
+        this.controlButton.click($.proxy(this.startTest, this));
+        this.controlButton.val("Start Test");
+    };
 
-    if (currentIteration >= increaseAfter) {
-        currentIteration = 0;
-        currentSize += 1;
+    this.evaluate = function () {
 
-        if (currentSize >= circleSizes.length) {
-            stopTest();
+        this.result.text("Number of clicks: " + this.numberOfClicks);
+        this.result.show();
+    };
+
+    this.clickCallback = function () {
+        this.currentIteration += 1;
+        this.numberOfClicks += 1;
+
+        if (this.currentIteration >= this.increaseAfter) {
+            this.currentIteration = 0;
+            this.currentSize += 1;
+
+            if (this.currentSize >= this.circleSizes.length) {
+                this.stopTest();
+            }
+            this.setCircleSize(this.circleSizes[this.currentSize]);
         }
-        setCircleSize(circleSizes[currentSize]);
+
+        this.moveCircleToRandomPosition();
+    };
+
+    this.setCircleSize = function (size) {
+        this.cirle.attr("r", size);
+    };
+
+    this.init = function () {
+        this.cirle.click($.proxy(this.clickCallback, this));
+        this.controlButton.click($.proxy(this.startTest, this));
     }
-
-    moveCircleToRandomPosition();
 }
 
-function setCircleSize(size) {
-    var c = $("#theCircle");
-    c.attr("r", size);
-}
-
-init();
+var test = new CircleTest();
+test.init();
