@@ -2,7 +2,7 @@ function CircleTest () {
 
     this.currentSize = 0;
     this.currentIteration = 0;
-    this.increaseAfter = 5;
+    this.increaseAfter = 20;
     this.circleSizes = [5, 10, 20, 30, 50];
     this.clicks = [];
     this.numberOfClicks = 0;
