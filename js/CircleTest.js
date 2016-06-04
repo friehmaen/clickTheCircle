@@ -74,6 +74,3 @@ function CircleTest () {
         this.controlButton.click($.proxy(this.startTest, this));
     }
 }
-
-var test = new CircleTest();
-test.init();
