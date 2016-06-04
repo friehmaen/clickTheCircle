@@ -18,7 +18,8 @@ function CircleTest () {
         var new_x = Math.floor(Math.random() * ($(document).width() - this.circleSizes[this.currentSize] * 2) + 1);
         var new_y = Math.floor(Math.random() * ($(document).height() - this.circleSizes[this.currentSize] * 2) + 1);
 
-        this.canvas.css({position: 'absolute', left: new_x, top: new_y});
+        this.cirle.attr("cx", new_x);
+        this.cirle.attr("cy", new_y);
     };
 
     this.startTest = function () {
@@ -80,6 +81,7 @@ function CircleTest () {
 
             if (this.currentSize >= this.circleSizes.length) {
                 this.stopTest();
+                return;
             }
             this.setCircleSize(this.circleSizes[this.currentSize]);
         }

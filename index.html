@@ -4,16 +4,18 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Circle Test</title>
-        <meta name="description" content="Cicle Test">
+        <meta name="description" content="Circle Test">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/main.css">
     </head>
     <body>
-        <input id="controlButton" type="button" value="Start Test" />
+        <input id="controlButton" type="button" value="Start Test" class="controlButton"/>
 
-        <svg xmlns="http://www.w3.org/2000/svg" id="theCanvas" class="hidden">
-            <circle cx="50" cy="50" r="5" fill="red" id="theCircle"/>
-        </svg>
+        <div id="theCanvas" class="hidden canvas">
+            <svg xmlns="http://www.w3.org/2000/svg" class="canvas">
+                <circle cx="50" cy="50" r="5" fill="red" id="theCircle"/>
+            </svg>
+        </div>
 
         <div id="result" class="hidden results"></div>
 
